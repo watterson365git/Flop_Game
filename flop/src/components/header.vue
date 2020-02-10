@@ -2,12 +2,12 @@
   <div class="header">
     <div class="count">
       <p>步数(steps)</p>
-      <div>{{time}}</div>
+      <div>{{$store.state.count}}</div>
     </div>
 
     <div class="time">
       <p>时间(sec s)</p>
-      <div>{{$store.state.count}}</div>
+      <div>{{time}}</div>
     </div>
     <button @click="start()"></button>
   </div>

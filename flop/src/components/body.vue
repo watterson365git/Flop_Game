@@ -1,25 +1,21 @@
 <template>
+
   <div class="bodyi">
-    <p>{{url1}}</p>
-    <p>{{url2}}</p>
-    <p>{{url3}}</p>
-    <p>{{url4}}</p>
-    <button @click="ramdom()">kaishi</button>
-    <div class="one" v-for="item in url1">
-      <img :src="item.src" alt="">
-      <img src="../assets/img/1.jpg" alt="">
-    </div>
-    <div  class="two" v-for="item in url2">
+    <div>
+      <button @click="ramdom()">kaishi</button>
 
     </div>
-    <div  class="three" v-for="item in url3">
 
-    </div>
-    <div  class="four" v-for="item in url4">
-
-    </div>
+<div class="contain">
+  <div class="fonter">
+      <div v-for="item in url" class="font1"  :style="{backgroundImage:'url('+item.src+')'}"> </div>
 </div>
 
+  <div class="back">
+    <div v-for="(item,index) in back" class="back1"  :style="{backgroundImage:'url('+item.src+')'}" @click="flip(index)" :class="{flop:isfloped==index}"> </div>
+</div>
+</div>
+</div>
 
 </template>
 
@@ -28,44 +24,89 @@ export default {
   name: 'bodyi',
   data(){
     return{
-      arr:[1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8],
-      url1:[],
-      url2:[],
-      url3:[],
-      url4:[],
-
+      arr:[{src:require("../assets/img/1.jpg")},{src:require("../assets/img/2.jpg")},{src:require("../assets/img/3.jpg")},{src:require("../assets/img/4.jpg")},{src:require("../assets/img/5.jpg")},{src:require("../assets/img/6.jpg")},{src:require("../assets/img/7.jpg")},{src:require("../assets/img/8.jpg")}],
+      url:[],
+      back:[{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")}],
+      isfloped:0,
+      shunxv:[],
     }
   },
   methods:{
     ramdom(){
-      var arr = ["../assets/img/1.jpg","../assets/img/1.jpg","../assets/img/2.jpg","../assets/img/2.jpg","../assets/img/3.jpg","../assets/img/3.jpg","../assets/img/4.jpg","../assets/img/4.jpg","../assets/img/5.jpg","../assets/img/5.jpg","../assets/img/6.jpg","../assets/img/6.jpg","../assets/img/7.jpg","../assets/img/7.jpg","../assets/img/8.jpg","../assets/img/8.jpg",];
+      // var arr =[1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
+      // var arr1 =[];
+      // for(let i=0, len = arr.length; i < len; i++) {
+      //   let index = parseInt(Math.random() * (len - 1));
+      //   let tempValue = arr[i];
+      //   arr[i] = arr[index];
+      //   arr[index] = tempValue;
+      // }
+      // // return arr 此处输出随机打乱的arr数组
+      //
+      // //下面输出4个一组分割后的二维数组
+      // //[ [ 7, 8, 3, 8 ], [ 2, 6, 4, 6 ], [ 2, 5, 1, 7 ], [ 4, 5, 1, 3 ] ]
+      // for(var i=0,len=arr.length;i<len;i+=4){
+      //   arr1.push(arr.slice(i,i+4));
+      // }
+      // console.log(arr1);
+      //
+      // var url1=[];
+      // var url2=[];
+      // var url3=[];
+      // var url4=[];
+      // for (let i =0;i<arr1.length;i++){
+      //   // console.log(arr1[i]);
+      //   for (let j =0;j<arr1[i].length;j++){
+      //     // console.log(arr1[i][j]);
+      //     if(i===0){
+      //       url1.push(this.arr[arr1[i][j]-1])
+      //     }else if(i===1){
+      //       url2.push(this.arr[arr1[i][j]-1])
+      //     }else if(i===2){
+      //       url3.push(this.arr[arr1[i][j]-1])
+      //     }else if(i===3){
+      //       url4.push(this.arr[arr1[i][j]-1])
+      //     }
+      //   }
+      // }
+      // this.url1=url1.concat()
+      // this.url2=url2.concat()
+      // this.url3=url3.concat()
+      // this.url4=url4.concat()
+
+
+      var url =[];
+      var arr =[1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
       var arr1 =[];
-      var arr2=[];
       for(let i=0, len = arr.length; i < len; i++) {
         let index = parseInt(Math.random() * (len - 1));
         let tempValue = arr[i];
         arr[i] = arr[index];
         arr[index] = tempValue;
       }
-      // console.log(arr);
+      // return arr 此处输出随机打乱的arr数组
+      console.log(arr)
+      this.shunxv =arr.concat()
+      for(let i=0;i<arr.length;i++){
+        url.push(this.arr[arr[i]-1])
 
-
-      for(let i =0;i<arr.length;i++){
-        var obj={src:arr[i]};
-        arr1[i]= obj
       }
 
-      for(var i=0,len=arr1.length;i<len;i+=4){
-        arr2.push(arr1.slice(i,i+4));
+      this.url=url.concat()
+    },
+    flip(index){
+      this.$store.commit('addcount');
+
+
+      console.log(this.isfloped);
+      console.log(index);
+
+      if(this.shunxv[this.isfloped]===this.shunxv[index]){
+        alert('dddddddddddddddddddd')
       }
-
-      this.url1=arr2[0];
-      this.url2=arr2[1];
-      this.url3=arr2[2];
-      this.url4=arr2[3];
-
-
+      this.isfloped =index
     }
+
   },
 
 
@@ -74,40 +115,42 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-
-.one,.two,.three,.four {
-    display: flex;
+  .contain{
+    height: 600px;
+    position: relative;
   }
 
-.one div,.two div,.three div,.four div {
-    flex: 1;
-    padding: 3px;
-  border: solid 1px black;
-  background:url("../assets/img/back.jpg") round;
-  width: 80px;
-  height: 120px;
+.fonter,.back{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.font1,.back1{
+  flex: 0 0 24.5%;
 
-  }
+  height: 141px;
+  width:98px;
+  background-repeat:no-repeat;
+  background-size:cover;
+  margin: 1px;
+}
 
-.one div,.two div,.three div,.four div:hover {
-  flex: 1;
-  padding: 3px;
-  border: solid 1px black;
-  background:url("../assets/img/1.jpg") round;
-  transform:rotateY(-180deg);
-  transition:0.6s;
-  width: 80px;
-  height: 120px;
+.back{
+  position: absolute;
+  top: 0;
+
 
 }
 
+ .flop{
+   transform:rotateY(-180deg);
+   transition:1s;
+   backface-visibility:hidden;
+ }
 
-
-
-
-
-
-
-
+  .flop2{
+    transform:rotateY(-180deg);
+    transition:0s;
+    backface-visibility:hidden;
+  }
 </style>
