@@ -5,9 +5,6 @@
       <button @click="ramdom()">洗牌+翻牌</button>
       <button @click="show()">我要看3秒钟</button>
 
-
-      提示语
-
     </div>
 
 <div class="contain">
@@ -34,7 +31,7 @@ export default {
       isfloped:16,
       shunxv:[],
       match:[99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99],
-      tip:'',
+
     }
   },
   methods:{
@@ -119,8 +116,8 @@ export default {
       this.$store.commit('addcount');
 
 
-      console.log(this.isfloped);
-      console.log(index);
+      // console.log(this.isfloped);
+      // console.log(index);
 
       if(this.shunxv[this.isfloped]===this.shunxv[index]){
         let matc = this.match.concat();
@@ -132,12 +129,13 @@ export default {
       }
       this.isfloped =index
 
-      console.log(JSON.parse(JSON.stringify(this.match)) );
+      // console.log(JSON.parse(JSON.stringify(this.match)) );
+      // console.log(this.match) ;
 
 
       if( JSON.parse(JSON.stringify(this.match)).toString()== standed.toString()){
         this.stop1();
-        this.tip = '游戏完成，洗牌再来一次吧'
+
       }
 
     },
