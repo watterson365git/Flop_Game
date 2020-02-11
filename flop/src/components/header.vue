@@ -7,9 +7,9 @@
 
     <div class="time">
       <p>时间(sec s)</p>
-      <div>{{time}}</div>
+      <div>{{$store.state.time}}</div>
     </div>
-    <button @click="start()"></button>
+
   </div>
 </template>
 
@@ -18,21 +18,12 @@ export default {
   name: 'headeri',
   data(){
     return{
-       time:440,
+
+       timer:''
 
     }
   },
   methods:{
-    get(){
-      this.time ++;
-      console.log(this.time);
-    },
-    start() {
-      this.timer = setInterval(this.get, 1000);
-    },
-    stop(){
-      clearInterval(this.timer);
-    }
 
 
   },

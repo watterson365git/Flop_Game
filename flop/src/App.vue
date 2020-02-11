@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <div class="papa">
-      <img src="./assets/img/拍手.webp" alt="">
-    </div>
+
     <headeri></headeri>
     <bodyi></bodyi>
 
@@ -32,18 +30,5 @@ export default {
   background-color: #d8e8ea;
   border: 5px ridge #437699;
 }
-  .papa{
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -100px; /* 高度的一半 */
-    margin-left: -100px; /* 宽度的一半 */
 
-
-
-  }
-.papa img{
-  width: 200px;
-}
 </style>

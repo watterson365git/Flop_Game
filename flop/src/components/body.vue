@@ -2,7 +2,11 @@
 
   <div class="bodyi">
     <div>
-      <button @click="ramdom()">kaishi</button>
+      <button @click="ramdom()">洗牌+翻牌</button>
+      <button @click="show()">我要看3秒钟</button>
+
+
+      提示语
 
     </div>
 
@@ -12,7 +16,7 @@
 </div>
 
   <div class="back">
-    <div v-for="(item,index) in back" class="back1"  :style="{backgroundImage:'url('+item.src+')'}" @click="flip(index)" :class="{flop:isfloped==index}"> </div>
+    <div v-for="(item,index) in back" class="back1"  :style="{backgroundImage:'url('+item.src+')'}" @click="flip(index)" :class="{flop:isfloped==index,flop2:match[index]==index}"> </div>
 </div>
 </div>
 </div>
@@ -26,9 +30,11 @@ export default {
     return{
       arr:[{src:require("../assets/img/1.jpg")},{src:require("../assets/img/2.jpg")},{src:require("../assets/img/3.jpg")},{src:require("../assets/img/4.jpg")},{src:require("../assets/img/5.jpg")},{src:require("../assets/img/6.jpg")},{src:require("../assets/img/7.jpg")},{src:require("../assets/img/8.jpg")}],
       url:[],
-      back:[{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")},{src:require("../assets/img/back.jpg")}],
-      isfloped:0,
+      back:[{src:require("../assets/img/back.jpg"),boolen:false},{src:require("../assets/img/back.jpg"),boolen:false},{src:require("../assets/img/back.jpg"),boolen:false},{src:require("../assets/img/back.jpg"),boolen:false},{src:require("../assets/img/back.jpg"),boolen:false},{src:require("../assets/img/back.jpg"),boolen:false},{src:require("../assets/img/back.jpg"),boolen:false},{src:require("../assets/img/back.jpg"),boolen:false},{src:require("../assets/img/back.jpg"),boolen:false},{src:require("../assets/img/back.jpg"),boolen:false},{src:require("../assets/img/back.jpg"),boolen:false},{src:require("../assets/img/back.jpg"),boolen:false},{src:require("../assets/img/back.jpg"),boolen:false},{src:require("../assets/img/back.jpg"),boolen:false},{src:require("../assets/img/back.jpg"),boolen:false},{src:require("../assets/img/back.jpg"),boolen:false},],
+      isfloped:16,
       shunxv:[],
+      match:[99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99],
+      tip:'',
     }
   },
   methods:{
@@ -93,8 +99,23 @@ export default {
       }
 
       this.url=url.concat()
+      this.isfloped = 16;
+      this.match = [99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99]
+
+
+      this.$store.commit('clearcount');
+      this.stop()
+
+
     },
     flip(index){
+      if(this.isfloped===16){
+        this.start()
+      }
+
+
+
+      var standed = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
       this.$store.commit('addcount');
 
 
@@ -102,12 +123,62 @@ export default {
       console.log(index);
 
       if(this.shunxv[this.isfloped]===this.shunxv[index]){
-        alert('dddddddddddddddddddd')
+        let matc = this.match.concat();
+        matc[index]=index;
+        matc[this.isfloped]=this.isfloped;
+
+        this.match=matc.concat()
+
       }
       this.isfloped =index
+
+      console.log(JSON.parse(JSON.stringify(this.match)) );
+
+
+      if( JSON.parse(JSON.stringify(this.match)).toString()== standed.toString()){
+        this.stop1();
+        this.tip = '游戏完成，洗牌再来一次吧'
+      }
+
+    },
+    show(){
+      this.stop1();
+      this.isfloped = 16;
+      this.match = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+      setTimeout(this.hidden, 3000);
+
+    },
+
+    hidden(){
+      this.match = [99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99]
+
+    },
+
+    get(){
+      this.$store.commit('addtime');
+      // console.log(this.$store.state.time);
+    },
+    start() {
+      this.timer = setInterval(this.get, 1000);
+    },
+    stop(){
+      clearInterval(this.timer);
+      this.$store.commit('cleartime');
+
+    },
+    stop1(){
+      clearInterval(this.timer);
+
+
     }
 
+
+
+
   },
+  created(){
+    this.ramdom()
+  }
 
 
 }
@@ -116,7 +187,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .contain{
-    height: 600px;
+    height: 573px;
     position: relative;
   }
 
